@@ -1,0 +1,74 @@
+// Date needs fixing
+
+const { Schema, model, Types } = require("mongoose");
+
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
+
+const ThoughtSchema = new Schema(
+  {
+    thoughtText: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 280,
+    },
+    createdAt: {
+      type: String,
+      default: new Date().toISOString(), //Date.now,
+
+      // createdAt: Date,
+      // default: Date.now
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [reactionSchema],
+    userId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
+
+ThoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
+
+const Thought = model("Thought", ThoughtSchema);
+
+module.exports = Thought;
