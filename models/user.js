@@ -1,9 +1,9 @@
 // date might need fixing
 
-const { Schema, model, Types } = require("mongoose");
-const thoughtSchema = require("./Thought");
+const { Schema, model } = require("mongoose");
+// const thoughtSchema = require("./Thought");
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     username: {
       type: String,
@@ -39,11 +39,11 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.virtual("friendCount").get(function () {
+userSchema.virtual("friendCount").get(function () {
   // return this.friends.reduce((total, friends) => total + friends.length + 1, 0);
    return this.friends.length;
 });
 
-const User = model("User", UserSchema);
+const User = model("user", userSchema);
 
 module.exports = User;
