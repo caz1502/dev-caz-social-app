@@ -1,4 +1,4 @@
-// complete
+// COMPLETE
 
 const Student = require("./User");
 const Course = require("./Thought");

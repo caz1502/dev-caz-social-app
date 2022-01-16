@@ -1,4 +1,4 @@
-// Date needs fixing
+// COMPLETE DATE NEEDS TESTING
 
 const { Schema, model, Types } = require("mongoose");
 
@@ -20,6 +20,7 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (timestamp) => moment(timestamp).format("MMM DD, YYYY [at] hh:mm a"),
     },
   },
   {
@@ -38,11 +39,10 @@ const ThoughtSchema = new Schema(
       maxLength: 280,
     },
     createdAt: {
-      type: String,
-      default: new Date().toISOString(), //Date.now,
-
-      // createdAt: Date,
-      // default: Date.now
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => moment(timestamp).format("MMM DD, YYYY [at] hh:mm a"),
+    
     },
     username: {
       type: String,
