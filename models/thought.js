@@ -1,70 +1,36 @@
-// COMPLETE DATE NEEDS TESTING
+const { Schema, model } = require("mongoose");
 
-const { Schema, model} = require("mongoose");
+const reactionSchema = require("./Reaction");
+const moment = require("moment");
 
-const reactionSchema = new Schema(
-  {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-    reactionBody: {
-      type: String,
-      required: true,
-      maxLength: 280,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (timestamp) => moment(timestamp).format("MMM DD, YYYY [at] hh:mm a"),
-    },
-  },
-  {
-    toJSON: {
-      getters: true,
-    },
-  }
-);
+//Schema for thoughts
 
 const thoughtSchema = new Schema(
   {
     thoughtText: {
       type: String,
       required: true,
-      minLength: 1,
-      maxLength: 280,
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (timestamp) => moment(timestamp).format("MMM DD, YYYY [at] hh:mm a"),
-    
+      get: (date) => moment(date).format("DD MMM YYYY, HH:mm"),
     },
     username: {
       type: String,
       required: true,
     },
     reactions: [reactionSchema],
-    userId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
   },
   {
     toJSON: {
-      virtuals: true,
       getters: true,
     },
-    id: false,
   }
 );
 
+//count the reactions to the thoughts
 thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });

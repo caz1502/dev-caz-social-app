@@ -1,17 +1,19 @@
 {
-  "name": "Social-API",
-  "version": "1.0.1",
-  "description": "Mongoose back-end project - Main",
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "An API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list",
   "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed",
-    "heroku-postbuild": "node utils/seed.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
